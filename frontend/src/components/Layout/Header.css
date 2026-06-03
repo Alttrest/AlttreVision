@@ -1,3 +1,124 @@
+:root {
+  /* Neumorphism Club Palette */
+  --color-primary: #006666;
+  --color-secondary: #F1F2F5;
+  --color-success: #00A63D;
+  --color-warning: #FE9900;
+  --color-danger: #FF2157;
+  
+  /* Monochromatic Surface for Neumorphism */
+  --color-surface: #E7E5E4;
+  --color-text: #1E2938;
+  --color-text-secondary: #57657A;
+
+  /* Typography Scale */
+  --font-primary: 'Space Mono', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Font Sizes */
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-hero: clamp(2rem, 4vw, 3rem);
+
+  /* Compact Density Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+
+  /* Radii */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  /* Neumorphic Extruded Shadows */
+  /* For surface #E7E5E4: Light shadow #ffffff, Dark shadow #c4c3c2 */
+  --shadow-neumorphic:  6px 6px 12px #c4c3c2, -6px -6px 12px #ffffff;
+  --shadow-neumorphic-hover: 8px 8px 16px #bcbbba, -8px -8px 16px #ffffff;
+  --shadow-neumorphic-inset: inset 6px 6px 12px #c4c3c2, inset -6px -6px 12px #ffffff;
+  --shadow-neumorphic-inset-deep: inset 8px 8px 16px #bcbbba, inset -8px -8px 16px #ffffff;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  
+  /* Layout */
+  --max-width: 1280px;
+  --header-height: 80px;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-surface);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--font-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  margin-top: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
 .header {
   position: sticky;
   top: 0;

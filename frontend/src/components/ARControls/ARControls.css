@@ -1,38 +1,164 @@
 .ar-controls {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--space-2);
-  margin-top: var(--space-6);
+  align-items: center;
 }
 
 .ar-button {
   width: 100%;
-  max-width: 320px;
-  padding: var(--space-4);
-  font-size: var(--font-size-lg);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: var(--space-3);
-  animation: float 3s ease-in-out infinite;
+  font-size: var(--font-size-lg);
+  padding: var(--space-4);
+  background-color: var(--color-primary);
+  color: white;
 }
 
 .ar-icon {
-  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ar-hint {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
   text-align: center;
 }
+
+/* Modal Overlay */
+.ar-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 41, 56, 0.5); /* neumorphic overlay */
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+/* Modal Card */
+.ar-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ar-modal-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.ar-modal-close:hover {
+  color: var(--color-danger);
+  transform: scale(1.1);
+}
+
+.ar-modal-title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+}
+
+.ar-modal-desc {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.ar-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.ar-option-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-neumorphic);
+  transition: all var(--transition-normal);
+  width: 100%;
+}
+
+.ar-option-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-neumorphic-hover);
+}
+
+.ar-option-btn:active {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-neumorphic-inset);
+}
+
+.ar-option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-neumorphic-inset);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.ar-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ar-option-text h4 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.ar-option-text p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.ar-option-btn.primary .ar-option-icon {
+  color: var(--color-success);
+}
+
 
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-4px); }
   100% { transform: translateY(0px); }
-}
-
 /* Hide AR controls on larger screens if desired, but model-viewer 
    handles fallback gracefully by showing a QR code prompt on desktop */

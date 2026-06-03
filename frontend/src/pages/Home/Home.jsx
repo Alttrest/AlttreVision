@@ -1,62 +1,76 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useProducts, useCategories } from '../../hooks/useProducts';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { APP_TAGLINE } from '../../utils/constants';
+import { Sofa, LayoutGrid, Lightbulb, Package, BedDouble, Tag } from 'lucide-react';
 import './Home.css';
+
+// Map category slugs to corporate Lucide icons
+const categoryIconMap = {
+  'koltuklar': Sofa,
+  'masalar': LayoutGrid,
+  'aydinlatma': Lightbulb,
+  'dekorasyon': Package,
+  'yatak-odasi': BedDouble,
+};
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState(null);
-  
-  const { categories, loading: categoriesLoading } = useCategories();
-  const { products, loading: productsLoading, error } = useProducts(activeCategory);
+  const { products, loading: productsLoading, error: productsError } = useProducts(activeCategory);
+  const { categories, loading: categoriesLoading, error: categoriesError } = useCategories();
+
+  // Handle active category tracking
+  const handleCategoryClick = useCallback((slug) => {
+    setActiveCategory(prev => prev === slug ? null : slug);
+  }, []);
 
   return (
-    <div className="home fade-in-up">
+    <div className="home container">
       {/* Hero Section */}
       <section className="hero">
-        <div className="container">
-          <h1 className="hero-title">
-            <span className="gradient-text">MobilyAR</span> ile
-            <br />{APP_TAGLINE}
-          </h1>
-          <p className="hero-subtitle">
-            Beğendiğiniz mobilyaları Artırılmış Gerçeklik (AR) teknolojisiyle 
-            kendi evinizde test edin.
-          </p>
-        </div>
+        <h1 className="hero-title">
+          Yaşam Alanınızı <span className="gradient-text">Yeniden Keşfedin</span>
+        </h1>
+        <p className="hero-subtitle">
+          Kurumsal AR teknolojimiz ile ürünleri satın almadan önce kendi mekanınızda deneyimleyin.
+        </p>
       </section>
 
-      {/* Category Filter */}
-      <section className="categories container">
-        {categoriesLoading ? (
-          <div className="categories-skeleton"></div>
-        ) : (
-          <div className="category-scroll">
+      {/* Categories Horizontal Scroll */}
+      <section className="categories">
+        {categoriesError && <div className="error-message">Kategoriler yüklenemedi.</div>}
+        
+        {!categoriesLoading && categories.length > 0 && (
+          <div className="category-scroll hide-scrollbar">
             <button 
               className={`category-btn ${activeCategory === null ? 'active' : ''}`}
-              onClick={() => setActiveCategory(null)}
+              onClick={() => handleCategoryClick(null)}
             >
+              <Tag size={18} />
               Tümü
             </button>
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                className={`category-btn ${activeCategory === cat.slug ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat.slug)}
-              >
-                <span className="category-icon">{cat.icon}</span>
-                {cat.name}
-              </button>
-            ))}
+            
+            {categories.map(category => {
+              const Icon = categoryIconMap[category.slug] || Tag;
+              return (
+                <button
+                  key={category.id}
+                  className={`category-btn ${activeCategory === category.slug ? 'active' : ''}`}
+                  onClick={() => handleCategoryClick(category.slug)}
+                >
+                  <Icon size={18} />
+                  {category.name}
+                </button>
+              );
+            })}
           </div>
         )}
       </section>
 
       {/* Product Grid */}
       <section className="products container">
-        {error && (
+        {productsError && (
           <div className="error-message glass">
-            <p>⚠️ {error}</p>
+            <p>⚠️ {productsError}</p>
           </div>
         )}
         

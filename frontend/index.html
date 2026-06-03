@@ -5,23 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AR Mobilya Görüntüleme</title>
-    <script>
-      alert("Test: index.html yüklendi ve JavaScript çalışıyor! (Eğer bunu görüyorsanız ekranı geçebilirsiniz)");
-      
-      window.onerror = function(msg, url, line, col, error) {
-         alert("Kritik JS Hatası: " + msg + "\nSatır: " + line);
-         return false;
-      };
-
-      window.addEventListener('unhandledrejection', function(event) {
-         alert("Promise Hatası (Gizli Çökme): " + event.reason);
-      });
-    </script>
+    <!-- Neumorphism Fonts: Space Mono & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div id="root" style="padding: 20px; text-align: center; font-family: sans-serif;">
-      React Uygulaması Başlatılıyor... (Eğer bu yazı gitmiyorsa, JS yüklenemedi veya telefonunuz desteklemiyor)
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

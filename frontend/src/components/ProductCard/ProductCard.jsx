@@ -1,17 +1,14 @@
 import { Link } from 'react-router-dom';
+import { Box } from 'lucide-react';
 import { formatPrice } from '../../utils/constants';
 import './ProductCard.css';
 
 export default function ProductCard({ product }) {
-  // Use category icon or a default box icon
-  const icon = product.category?.icon || '📦';
-
   return (
     <Link to={`/product/${product.slug}`} className="product-card glass">
       <div className="product-image-container">
-        {/* We don't have real images, so we show a stylized placeholder with the category icon */}
         <div className="product-placeholder">
-          <span className="placeholder-icon">{icon}</span>
+          <Box size={48} className="placeholder-icon" />
           <span className="placeholder-text">3D Model</span>
         </div>
         <div className="product-category-badge glass">

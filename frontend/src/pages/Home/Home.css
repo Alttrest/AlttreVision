@@ -44,13 +44,13 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-5);
-  border-radius: var(--radius-full);
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: none;
+  color: var(--color-text);
   font-weight: 500;
   white-space: nowrap;
   transition: all var(--transition-fast);
+  box-shadow: var(--shadow-neumorphic);
 }
 
 .category-btn:hover {
@@ -59,10 +59,10 @@
 }
 
 .category-btn.active {
-  background: var(--color-accent);
-  color: white;
-  border-color: var(--color-accent);
-  box-shadow: var(--shadow-glow);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: none;
+  box-shadow: var(--shadow-neumorphic-inset);
 }
 
 /* Product Grid */

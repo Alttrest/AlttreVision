@@ -1,3 +1,4 @@
+import { Camera } from 'lucide-react';
 import { useScreenshot } from '../../hooks/useScreenshot';
 import './ScreenshotButton.css';
 
@@ -9,12 +10,12 @@ export default function ScreenshotButton({ viewerRef }) {
 
   return (
     <button 
-      className="screenshot-button glass"
+      className="screenshot-button neumorphic-btn"
       onClick={() => takeScreenshot(viewerRef)}
       title="Fotoğraf Çek"
       aria-label="Fotoğraf Çek"
     >
-      📸
+      <Camera size={24} color="var(--color-primary)" />
     </button>
   );
 }

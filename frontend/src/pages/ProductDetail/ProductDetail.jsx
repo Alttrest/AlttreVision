@@ -5,6 +5,7 @@ import ModelViewer from '../../components/ModelViewer/ModelViewer';
 import ARControls from '../../components/ARControls/ARControls';
 import ScreenshotButton from '../../components/ScreenshotButton/ScreenshotButton';
 import { formatPrice, formatDimensions } from '../../utils/constants';
+import { Lightbulb } from 'lucide-react';
 import './ProductDetail.css';
 
 export default function ProductDetail() {
@@ -120,7 +121,7 @@ export default function ProductDetail() {
             
             {/* Desktop hint since AR is mainly for mobile */}
             <div className="desktop-hint glass">
-              <span className="hint-icon">💡</span>
+              <Lightbulb className="hint-icon" size={20} />
               <p>Gerçek boyutlu AR deneyimi için bu sayfayı mobil cihazınızda açın.</p>
             </div>
           </div>
