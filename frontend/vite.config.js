@@ -6,7 +6,6 @@ import basicSsl from '@vitejs/plugin-basic-ssl';
 export default defineConfig({
   plugins: [
     react(),
-    basicSsl(), // Self-signed SSL for local HTTPS — required for AR camera on mobile
   ],
   server: {
     https: true,
