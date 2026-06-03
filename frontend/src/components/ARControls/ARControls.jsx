@@ -28,9 +28,13 @@ export default function ARControls({ viewerRef }) {
       
       viewerRef.current.addEventListener('ar-status', onArStatus);
 
-      // LitElement updates are asynchronous. We must wait for the property change
-      if (viewerRef.current.updateComplete) {
-        await viewerRef.current.updateComplete;
+      // LitElement updates are asynchronous by default, which breaks the user gesture token if we await.
+      // We must force a synchronous update so model-viewer knows the new ar-modes immediately.
+      if (typeof viewerRef.current.requestUpdate === 'function') {
+        viewerRef.current.requestUpdate();
+      }
+      if (typeof viewerRef.current.performUpdate === 'function') {
+        viewerRef.current.performUpdate();
       }
 
       // Call activateAR synchronously so the browser doesn't block it
