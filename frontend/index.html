@@ -7,14 +7,21 @@
     <title>AR Mobilya Görüntüleme</title>
     <script>
       alert("Test: index.html yüklendi ve JavaScript çalışıyor! (Eğer bunu görüyorsanız ekranı geçebilirsiniz)");
+      
       window.onerror = function(msg, url, line, col, error) {
          alert("Kritik JS Hatası: " + msg + "\nSatır: " + line);
          return false;
       };
+
+      window.addEventListener('unhandledrejection', function(event) {
+         alert("Promise Hatası (Gizli Çökme): " + event.reason);
+      });
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" style="padding: 20px; text-align: center; font-family: sans-serif;">
+      React Uygulaması Başlatılıyor... (Eğer bu yazı gitmiyorsa, JS yüklenemedi veya telefonunuz desteklemiyor)
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
