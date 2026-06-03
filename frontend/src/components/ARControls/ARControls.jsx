@@ -8,44 +8,50 @@ import './ARControls.css';
 export default function ARControls({ viewerRef }) {
   const [showModal, setShowModal] = useState(false);
 
-  const prepareAR = (modes) => {
-    if (viewerRef.current) {
-      viewerRef.current.arModes = modes;
-      viewerRef.current.setAttribute('ar-modes', modes);
-      if (typeof viewerRef.current.requestUpdate === 'function') {
-        viewerRef.current.requestUpdate();
-      }
-    }
+  const getSceneViewerIntent = () => {
+    if (!viewerRef.current) return '#';
+    const location = window.location.toString();
+    const modelUrl = new URL(viewerRef.current.src, location);
+    if (modelUrl.hash) modelUrl.hash = '';
+    
+    const params = new URLSearchParams(modelUrl.search);
+    params.set('mode', 'ar_preferred');
+    params.set('disable_occlusion', 'true');
+    // We assume default placement is floor or wall based on the model; we can just pass true.
+    params.set('enable_vertical_placement', 'true');
+
+    const locationUrl = new URL(location);
+    locationUrl.hash = '#model-viewer-no-ar-fallback';
+
+    return `intent://arvr.google.com/scene-viewer/1.2?${params.toString()}&file=${encodeURIComponent(modelUrl.toString())}#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(locationUrl.toString())};end;`;
   };
 
-  const launchAR = async (modes) => {
-    if (viewerRef.current) {
-      // Ensure it's set just in case onPointerDown didn't fire (e.g. keyboard navigation)
-      viewerRef.current.arModes = modes;
-      viewerRef.current.setAttribute('ar-modes', modes);
-      
-      setShowModal(false);
-      
-      // Listen to the ar-status event to know if AR actually failed
+  const launchAR = async (mode) => {
+    if (!viewerRef.current) return;
+    
+    setShowModal(false);
+    
+    if (mode === 'webxr') {
+      // ModelViewer.jsx now hardcodes ar-modes="webxr".
+      // This guarantees model-viewer will NEVER silently fallback to Scene Viewer.
       const onArStatus = (event) => {
         if (event.detail.status === 'failed') {
-          if (modes === 'webxr') {
-            alert("WebXR başlatılamadı. Tarayıcınız desteklemiyor veya yerel ağdaki HTTPS güvenlik kısıtlamalarına takılmış olabilirsiniz. Lütfen 'Cihaz Kamerası' seçeneğini kullanın.");
-          } else {
-            alert("AR başlatılamadı. Cihazınız AR desteklemiyor olabilir.");
-          }
+          alert("WebXR başlatılamadı. Tarayıcınız desteklemiyor veya yerel ağdaki HTTPS güvenlik kısıtlamalarına takılmış olabilirsiniz. Lütfen 'Cihaz Kamerası' seçeneğini kullanın.");
         }
         viewerRef.current.removeEventListener('ar-status', onArStatus);
       };
       
       viewerRef.current.addEventListener('ar-status', onArStatus);
 
-      // Call activateAR synchronously so the browser doesn't block it
       try {
         await viewerRef.current.activateAR();
       } catch (error) {
         console.error("AR başlatılamadı:", error);
       }
+    } else {
+      // Scene Viewer (Cihaz Kamerası) Mode
+      // Bypass model-viewer's buggy fallback completely and manually open the Android AR app.
+      window.location.href = getSceneViewerIntent();
     }
   };
 
@@ -77,8 +83,6 @@ export default function ARControls({ viewerRef }) {
             <div className="ar-options">
               <button 
                 className="ar-option-btn neumorphic-btn"
-                onPointerDown={() => prepareAR('webxr')}
-                onTouchStart={() => prepareAR('webxr')}
                 onClick={() => launchAR('webxr')}
               >
                 <div className="ar-option-icon">
@@ -92,9 +96,7 @@ export default function ARControls({ viewerRef }) {
 
               <button 
                 className="ar-option-btn neumorphic-btn primary"
-                onPointerDown={() => prepareAR('scene-viewer quick-look')}
-                onTouchStart={() => prepareAR('scene-viewer quick-look')}
-                onClick={() => launchAR('scene-viewer quick-look')}
+                onClick={() => launchAR('scene-viewer')}
               >
                 <div className="ar-option-icon">
                   <Camera size={32} />

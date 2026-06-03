@@ -41,7 +41,7 @@ export default function ModelViewer({ product, viewerRef }) {
         ios-src={product.iosModelUrl || undefined}
         alt={`${product.name} 3D Modeli`}
         ar
-        ar-modes="scene-viewer quick-look webxr"
+        ar-modes="webxr"
         ar-scale={product.arScale || 'auto'}
         camera-controls
         touch-action="pan-y"
