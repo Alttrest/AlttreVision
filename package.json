@@ -1,0 +1,10 @@
+{
+  "name": "ar-furniture-viewer-root",
+  "version": "1.0.0",
+  "description": "AR Mobilya Görüntüleme - Monorepo Root",
+  "private": true,
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install && npm run seed",
+    "start": "cd backend && npm start"
+  }
+}
