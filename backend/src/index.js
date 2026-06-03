@@ -50,6 +50,15 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// --- Frontend Serving (Full Stack) ---
+const frontendPath = path.join(__dirname, '../../frontend/dist');
+app.use(express.static(frontendPath));
+
+// SPA Fallback for React Router
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
 // --- Error Handler ---
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
@@ -61,7 +70,7 @@ app.use((err, req, res, next) => {
 
 // --- Start Server ---
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n🚀 AR Furniture API çalışıyor:`);
+  console.log(`\n🚀 AR Furniture API & Web çalışıyor:`);
   console.log(`   Local:   http://localhost:${PORT}`);
   console.log(`   Network: http://0.0.0.0:${PORT}`);
   console.log(`\n📦 API Endpoints:`);
