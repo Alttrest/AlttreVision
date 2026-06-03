@@ -8,10 +8,22 @@ import './ARControls.css';
 export default function ARControls({ viewerRef }) {
   const [showModal, setShowModal] = useState(false);
 
-  const launchAR = async (modes) => {
+  const prepareAR = (modes) => {
     if (viewerRef.current) {
       viewerRef.current.arModes = modes;
       viewerRef.current.setAttribute('ar-modes', modes);
+      if (typeof viewerRef.current.requestUpdate === 'function') {
+        viewerRef.current.requestUpdate();
+      }
+    }
+  };
+
+  const launchAR = async (modes) => {
+    if (viewerRef.current) {
+      // Ensure it's set just in case onPointerDown didn't fire (e.g. keyboard navigation)
+      viewerRef.current.arModes = modes;
+      viewerRef.current.setAttribute('ar-modes', modes);
+      
       setShowModal(false);
       
       // Listen to the ar-status event to know if AR actually failed
@@ -27,15 +39,6 @@ export default function ARControls({ viewerRef }) {
       };
       
       viewerRef.current.addEventListener('ar-status', onArStatus);
-
-      // LitElement updates are asynchronous by default, which breaks the user gesture token if we await.
-      // We must force a synchronous update so model-viewer knows the new ar-modes immediately.
-      if (typeof viewerRef.current.requestUpdate === 'function') {
-        viewerRef.current.requestUpdate();
-      }
-      if (typeof viewerRef.current.performUpdate === 'function') {
-        viewerRef.current.performUpdate();
-      }
 
       // Call activateAR synchronously so the browser doesn't block it
       try {
@@ -74,6 +77,8 @@ export default function ARControls({ viewerRef }) {
             <div className="ar-options">
               <button 
                 className="ar-option-btn neumorphic-btn"
+                onPointerDown={() => prepareAR('webxr')}
+                onTouchStart={() => prepareAR('webxr')}
                 onClick={() => launchAR('webxr')}
               >
                 <div className="ar-option-icon">
@@ -87,6 +92,8 @@ export default function ARControls({ viewerRef }) {
 
               <button 
                 className="ar-option-btn neumorphic-btn primary"
+                onPointerDown={() => prepareAR('scene-viewer quick-look')}
+                onTouchStart={() => prepareAR('scene-viewer quick-look')}
                 onClick={() => launchAR('scene-viewer quick-look')}
               >
                 <div className="ar-option-icon">
