@@ -1,0 +1,150 @@
+.product-detail {
+  padding: var(--space-6) 0 var(--space-12);
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  margin-bottom: var(--space-6);
+  transition: color var(--transition-fast);
+}
+
+.back-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+/* Viewer Section */
+.viewer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.viewer-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Info Section */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.info-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.product-title {
+  font-size: var(--font-size-4xl);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.product-price.price {
+  font-size: var(--font-size-3xl);
+  margin-top: var(--space-2);
+}
+
+.info-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.info-block h3 {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.info-block p {
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* Specs */
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-4);
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+.spec-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.spec-value {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* Desktop Hint */
+.desktop-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-subtle);
+  border-color: rgba(124, 92, 252, 0.2);
+}
+
+.hint-icon {
+  font-size: 1.2rem;
+}
+
+.desktop-hint p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.mt-4 {
+  margin-top: var(--space-4);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .desktop-hint {
+    display: none; /* Hide on mobile since they can already use AR */
+  }
+}
