@@ -1,5 +1,1 @@
-<p align="center">
-  <a href="https://github.com/Alttrest/AlttreVision">
-    <img src="https://github-readme-svg-ten.vercel.app/api?username=Alttrest&repo=AlttreVision&theme=dark" alt="AlttreVision Stats" />
-  </a>
-</p>
+<div align="center">\n  <a href="https://github.com/Alttrest/AlttreVision">\n    <img src="readme.svg" alt="AlttreVision" width="100%"/>\n  </a>\n</div>\n
