@@ -1,1 +1,5 @@
-<div align="center">\n  <a href="https://github.com/Alttrest/AlttreVision">\n    <img src="readme.svg" alt="AlttreVision" width="100%"/>\n  </a>\n</div>\n
+<p align="center">
+  <a href="https://github.com/Alttrest/AlttreVision">
+    <img src="readme.svg" width="100%" alt="AlttreVision - Interactive Architecture &amp; Visual Identity" />
+  </a>
+</p>
